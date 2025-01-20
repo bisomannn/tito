@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>امريكانى</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    button:hover {
+      filter: brightness(1.2);
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 80%;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+    #totalScore {
+      margin-top: 20px;
+    }
+    #subtractMode {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>أمريكانى</h1>
+  <button onclick="addRound()">عشره جديده</button>
+  <button onclick="toggleSubtractMode()">هتنزل كام</button>
+  <div id="subtractMode" style="font-size: 20px; color: green;">Add Mode ON</div>
+  
+  <table id="scoreTable" border="1">
+    <thead>
+      <tr>
+        <th>Round</th>
+        <th>Player 1</th>
+        <th>Player 2</th>
+        <!-- يمكن إضافة أعمدة للاعبين إضافيين -->
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h2>كلت كام</h2>
+  <div id="totalScore"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
