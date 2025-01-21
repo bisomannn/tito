@@ -1,25 +1,11 @@
 let totalScores = [0, 0];
 let isSubtractMode = false;
-let playerNames = ['Player 1', 'Player 2']; // متغير لتخزين الأسماء
 
 // Update scores
 function updateScore(player, value) {
-    const actualValue = isSubtractMode ? -value : value;
-    totalScores[player] += actualValue;
+    totalScores[player] += isSubtractMode ? -value : value;
     document.getElementById(`player${player + 1}-score`).textContent = totalScores[player];
-    addLogEntry(player, actualValue, isSubtractMode); // Add to log
-}
-
-// Add entry to log
-function addLogEntry(player, value, mode) {
-    const logList = document.getElementById("log-list");
-    const logEntry = document.createElement("li");
-    const action = mode ? "نزل" : "كل";
-    logEntry.textContent = `${playerNames[player]}: ${action} ${Math.abs(value)} بونط`; // استخدم الأسماء من المتغير
-    logList.appendChild(logEntry);
-
-    // Keep log scrolled to the bottom
-    logList.scrollTop = logList.scrollHeight;
+    addToLog(player + 1, value, isSubtractMode);
 }
 
 // Toggle mode
@@ -30,17 +16,14 @@ function toggleMode() {
     modeIndicator.style.color = isSubtractMode ? "red" : "green";
 }
 
-// Start the game
-function startGame() {
-    totalScores = [0, 0];
-    document.getElementById("player1-score").textContent = "0";
-    document.getElementById("player2-score").textContent = "0";
-    isSubtractMode = false;
-    document.getElementById("mode-indicator").textContent = "وضع الاكل مفعل";
-    document.getElementById("mode-indicator").style.color = "green";
-
-    // Clear the log
-    document.getElementById("log-list").innerHTML = "";
+// Add to log
+function addToLog(player, value, isSubtractMode) {
+    const playerName = document.getElementById(`player${player}-name`).textContent;
+    const logEntry = document.createElement("li");
+    logEntry.textContent = `${playerName} ${isSubtractMode ? "نزل" : "كل"} ${value} بونط`;
+    const scoreLog = document.getElementById("score-log");
+    scoreLog.appendChild(logEntry);
+    scoreLog.scrollTop = scoreLog.scrollHeight; // Scroll to the latest log
 }
 
 // Initialize buttons
@@ -61,39 +44,33 @@ function initButtons() {
     });
 }
 
-// Player 1: Change name
-document.getElementById('edit-player1-name').addEventListener('click', function () {
-    const nameField = document.getElementById('player1-name');
-    const inputField = document.getElementById('player1-name-input');
+// Start the game
+function startGame() {
+    totalScores = [0, 0];
+    document.getElementById("player1-score").textContent = "0";
+    document.getElementById("player2-score").textContent = "0";
+    isSubtractMode = false;
+    document.getElementById("mode-indicator").textContent = "وضع الاكل مفعل";
+    document.getElementById("mode-indicator").style.color = "green";
+    document.getElementById("score-log").innerHTML = ""; // Clear the log
+}
 
-    if (inputField.style.display === 'none') {
-        inputField.style.display = 'block';
-        inputField.value = nameField.textContent;
-    } else {
-        // Update the name displayed with the new value
-        const newName = inputField.value.trim() || 'Player 1';
-        nameField.textContent = newName;
-        playerNames[0] = newName;  // تحديث الاسم في المتغير
-        inputField.style.display = 'none';
-    }
-});
+// Edit player name
+function setupNameEditing(playerId) {
+    const editButton = document.getElementById(`edit-player${playerId}-name`);
+    const nameField = document.getElementById(`player${playerId}-name`);
+    const inputField = document.getElementById(`player${playerId}-name-input`);
 
-// Player 2: Change name
-document.getElementById('edit-player2-name').addEventListener('click', function () {
-    const nameField = document.getElementById('player2-name');
-    const inputField = document.getElementById('player2-name-input');
-
-    if (inputField.style.display === 'none') {
-        inputField.style.display = 'block';
-        inputField.value = nameField.textContent;
-    } else {
-        // Update the name displayed with the new value
-        const newName = inputField.value.trim() || 'Player 2';
-        nameField.textContent = newName;
-        playerNames[1] = newName;  // تحديث الاسم في المتغير
-        inputField.style.display = 'none';
-    }
-});
+    editButton.addEventListener("click", () => {
+        if (inputField.style.display === "none") {
+            inputField.style.display = "block";
+            inputField.value = nameField.textContent;
+        } else {
+            nameField.textContent = inputField.value || `Player ${playerId}`;
+            inputField.style.display = "none";
+        }
+    });
+}
 
 // Event listeners
 document.getElementById("start").addEventListener("click", startGame);
@@ -101,3 +78,5 @@ document.getElementById("toggle").addEventListener("click", toggleMode);
 
 // Initialize
 initButtons();
+setupNameEditing(1);
+setupNameEditing(2);
