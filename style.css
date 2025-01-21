@@ -137,7 +137,7 @@ button#edit-player2-name {
   margin: 20px auto; /* مسافة خارجية */
   background-color: #f9f9f9; /* لون خلفية */
   border-radius: 5px; /* حواف مستديرة */
-  max-width: 800px; /* تحديد عرض السجل */
+  max-width: 200px; /* تحديد عرض السجل */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
