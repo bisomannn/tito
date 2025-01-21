@@ -38,8 +38,8 @@ button {
 .scoreboard {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 30px;
+  justify-content: center; /* محاذاة في المنتصف */
+  gap: 30px; /* تقليل المسافة بين العناصر */
   margin-top: 20px;
 }
 
@@ -55,7 +55,7 @@ h2 {
 
 .button-grid {
   display: grid;
-  grid-template-columns: repeat(3, 60px);
+  grid-template-columns: repeat(2, 60px);
   gap: 5px;
   justify-content: center;
 }
@@ -81,7 +81,7 @@ button.number-button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 20px;
+  margin: 0 20px; /* تقليل الحشو الجانبي */
 }
 
 .total-score h2 {
@@ -102,29 +102,10 @@ button.number-button {
   color: rgb(255, 0, 0);
 }
 
-#log-container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #f9f9f9;
-  border-top: 1px solid #ddd;
-  padding: 10px;
-  max-height: 150px;
-  overflow-y: auto;
-  font-size: 14px;
-}
-
-#log-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-#log-list li {
-  margin: 5px 0;
-  color: #333;
-  text-align: left;
+/* تحسين ترتيب الأزرار */
+#player1-buttons,
+#player2-buttons {
+  margin: 0 auto;
 }
 
 input {
@@ -146,200 +127,37 @@ button#edit-player2-name {
   background-color: #ddd;
   cursor: pointer;
 }
-button#start, button#toggle {
-  position: relative;
-  overflow: hidden;
-  transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+
+/* تنسيق سجل النقاط */
+.log {
+  max-height: 200px; /* تحديد ارتفاع السجل */
+  overflow-y: auto; /* إضافة شريط تمرير عمودي */
+  border: 1px solid #ccc; /* إضافة حدود للسجل */
+  padding: 10px; /* مسافة داخلية */
+  margin: 20px auto; /* مسافة خارجية */
+  background-color: #f9f9f9; /* لون خلفية */
+  border-radius: 5px; /* حواف مستديرة */
+  max-width: 800px; /* تحديد عرض السجل */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-button#start:hover, button#toggle:hover {
-  background-color: #444;
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-}
-
-button#start:active, button#toggle:active {
-  transform: scale(0.95);
-  box-shadow: 0 0 25px rgba(255, 255, 255, 1);
-}
-#mode-indicator {
+.log h2 {
+  margin: 0 0 10px 0;
   font-size: 20px;
-  font-weight: bold;
-  background: linear-gradient(90deg, red, green, blue);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientMove 3s infinite linear;
+  color: #444;
 }
 
-@keyframes gradientMove {
-  0% {
-      background-position: 0%;
-  }
-  100% {
-      background-position: 100%;
-  }
-}
-button.number-button {
-    width: 60px;
-    height: 60px;
-    font-size: 20px;
-    border-radius: 5px;
-    color: white;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.number-button.red {
-    background-color: red;
-    box-shadow: 0 0 3px rgba(255, 0, 0, 0.8);
-}
-
-.number-button.blue {
-    background-color: blue;
-    box-shadow: 0 0 3px rgba(0, 0, 255, 0.8);
-}
-
-/* تأثير اللمعان عند التمرير */
-button.number-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
-}
-
-/* تأثير عند النقر */
-button.number-button:active {
-    transform: scale(0.95);
-    box-shadow: 0 0 25px rgba(255, 255, 255, 1);
-}
-
-/* إضافة تأثير متدرج للأزرار */
-button.number-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-button.number-button:hover::before {
-    opacity: 1;
-}
-/* تصميم مرن باستخدام Flexbox */
-body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+#score-log {
+  list-style-type: none;
+  padding: 0;
   margin: 0;
 }
 
-#game-container {
-  width: 100%;
-  max-width: 600px; /* الحد الأقصى للعرض */
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#mode-indicator {
-  margin: 10px 0;
-  font-size: 20px;
-}
-
-/* لتعديل الأزرار لتتناسب مع الموبايل */
-.number-button {
-  margin: 5px;
-  padding: 15px 20px;
-  font-size: 18px;
-  width: 80px;
-  height: 60px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.number-button:hover {
-  background-color: #45a049;
-}
-
-/* تخصيص نصوص اللاعبين لتكون مرنة */
-#player1-name, #player2-name {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-#log-list {
-  max-height: 300px;
-  overflow-y: auto;
-  width: 100%;
-}
-
-/* تخصيص السجل */
-#log-list li {
+#score-log li {
+  margin-bottom: 5px;
+  padding: 5px;
+  background-color: #e9ecef;
+  border-radius: 3px;
   font-size: 16px;
-  margin: 5px 0;
+  color: #333;
 }
-
-/* تخصيص الشاشات الكبيرة */
-@media (min-width: 768px) {
-  #game-container {
-      flex-direction: row;
-      justify-content: space-around;
-  }
-
-  .number-button {
-      width: 100px;
-      height: 70px;
-      font-size: 22px;
-  }
-}
-
-/* تخصيص الشاشات الصغيرة */
-@media (max-width: 480px) {
-  #game-container {
-      width: 100%;
-      flex-direction: column;
-  }
-
-  .number-button {
-      width: 70px;
-      height: 50px;
-      font-size: 16px;
-  }
-
-  #mode-indicator {
-      font-size: 16px;
-  }
-}
-
-/* تخصيص واجهة المستخدم عند تغيير الأسماء */
-input[type="text"] {
-  width: 100%;
-  padding: 8px;
-  margin: 5px 0;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-button {
-  padding: 10px 15px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
